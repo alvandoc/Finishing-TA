@@ -6,7 +6,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:project_ta_ke_7/core/models/category_model.dart';
 import 'package:project_ta_ke_7/core/models/produk_model.dart';
-import 'package:project_ta_ke_7/core/utils/compress_utils.dart';
 import 'package:project_ta_ke_7/core/utils/dialog_utils.dart';
 import 'package:project_ta_ke_7/core/viewmodels/product/product_provider.dart';
 import 'package:project_ta_ke_7/ui/constant/constant.dart';
@@ -52,16 +51,10 @@ class _CreateProdukBodyState extends State<CreateProdukBody> {
 
   File imageProduk;
   void pickImage() async {
-    var image = await ImagePicker.pickImage(source: ImageSource.gallery);
-    if (image != null) {
-      DialogUtils.instance.showLoading(context, "Mengompress gambar");
-      image = await CompressUtils.compressing(image);
-
-      Navigator.pop(context);
+    var image = await ImagePicker.pickImage(source: ImageSource.camera, maxHeight: 480, maxWidth: 640);
       setState(() {
         imageProduk = image;
       });
-    }
   }
 
   void pickCategory() async {
@@ -137,6 +130,7 @@ class _CreateProdukBodyState extends State<CreateProdukBody> {
             ),
             SizedBox(height: 10),
             InputWidget(
+              labelText: "Judul",
               controller: titleController,
               action: TextInputAction.done,
               type: TextInputType.text,
@@ -160,6 +154,7 @@ class _CreateProdukBodyState extends State<CreateProdukBody> {
             ),
             SizedBox(height: 10),
             InputWidget(
+              labelText: "Stok",
               controller: stockController,
               action: TextInputAction.done,
               type: TextInputType.number,
@@ -183,6 +178,7 @@ class _CreateProdukBodyState extends State<CreateProdukBody> {
             ),
             SizedBox(height: 10),
             InputWidget(
+              labelText: "Deskripsi",
               controller: descriptionController,
               action: TextInputAction.newline,
               type: TextInputType.multiline,
@@ -206,6 +202,7 @@ class _CreateProdukBodyState extends State<CreateProdukBody> {
             ),
             SizedBox(height: 10),
             InputWidget(
+              labelText: "Harga",
               controller: priceController,
               action: TextInputAction.done,
               type: TextInputType.number,
@@ -229,6 +226,7 @@ class _CreateProdukBodyState extends State<CreateProdukBody> {
             ),
             SizedBox(height: 10),
             InputWidget(
+              labelText: "Kategori",
               controller: categoryController,
               action: TextInputAction.done,
               type: TextInputType.text,
@@ -311,7 +309,7 @@ class _CreateProdukBodyState extends State<CreateProdukBody> {
                     borderRadius: BorderRadius.circular(60),
                     child: Padding(
                       padding: const EdgeInsets.all(15),
-                      child: SvgPicture.asset("${iconAsset}/product.svg", color: primaryColor),
+                      child: SvgPicture.asset("$iconAsset/product.svg", color: primaryColor),
                     ),
                   ),
                 ),

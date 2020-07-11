@@ -4,7 +4,8 @@ import 'package:project_ta_ke_7/core/viewmodels/barang_keluar/barang_keluar_prov
 import 'package:project_ta_ke_7/ui/constant/constant.dart';
 import 'package:provider/provider.dart';
 
-class BarangKeluarItem extends StatelessWidget {
+// ignore: must_be_immutable
+class BarangKeluarItem extends StatefulWidget {
 
   BarangKeluarModel barang;
   bool enableDelete;
@@ -13,6 +14,11 @@ class BarangKeluarItem extends StatelessWidget {
     this.enableDelete = true
   });
 
+  @override
+  _BarangKeluarItemState createState() => _BarangKeluarItemState();
+}
+
+class _BarangKeluarItemState extends State<BarangKeluarItem> {
   @override
   Widget build(BuildContext context) {
 
@@ -36,7 +42,7 @@ class BarangKeluarItem extends StatelessWidget {
         type: MaterialType.transparency,
         color: Colors.transparent,
         child: InkWell(
-          onTap: () => barangKeluarProv.goToProduct(barang.produkId.toString(), context),
+          onTap: () => barangKeluarProv.goToProduct(widget.barang.produkId.toString(), context),
           borderRadius: BorderRadius.circular(8),
           child: Padding(
             padding: const EdgeInsets.all(8),
@@ -59,7 +65,7 @@ class BarangKeluarItem extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(
-                          barang.title,
+                          widget.barang.title,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
@@ -73,10 +79,10 @@ class BarangKeluarItem extends StatelessWidget {
                           children: <Widget>[
                             Row(
                               children: <Widget>[
-                                Icon(IconData(barang.categoryIcon, fontFamily: "MaterialIcons"), color: primaryColor),
+                                Icon(IconData(widget.barang.categoryIcon, fontFamily: "MaterialIcons"), color: primaryColor),
                                 SizedBox(width: 5),
                                 Text(
-                                  barang.category,
+                                  widget.barang.category,
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
                                     fontSize: 14,
@@ -96,7 +102,7 @@ class BarangKeluarItem extends StatelessWidget {
                             SizedBox(width: 5),
 
                             Text(
-                              "Quantity: ${barang.quantity.toString()}",
+                              "Quantity: ${widget.barang.quantity.toString()}",
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(
                                 fontSize: 14,
@@ -109,8 +115,8 @@ class BarangKeluarItem extends StatelessWidget {
                   ],
                 ),
 
-                enableDelete 
-                  ?_deleteBarang(barang)
+                widget.enableDelete 
+                  ?_deleteBarang(widget.barang)
                   : SizedBox()
               ],
             ),

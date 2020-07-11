@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-class CustomTextfield extends StatelessWidget {
+// ignore: must_be_immutable
+class CustomTextfield extends StatefulWidget {
   TextInputAction action;
   TextInputType type;
   TextEditingController controller;
@@ -9,13 +10,18 @@ class CustomTextfield extends StatelessWidget {
   CustomTextfield({this.action, this.type, this.controller, this.hintText});
 
   @override
+  _CustomTextfieldState createState() => _CustomTextfieldState();
+}
+
+class _CustomTextfieldState extends State<CustomTextfield> {
+  @override
   Widget build(BuildContext context) {
     return Container(
       child: TextField(
-        textInputAction: action,
-        keyboardType: type,
-        controller: controller,
-        decoration: InputDecoration(hintText: hintText),
+        textInputAction: widget.action,
+        keyboardType: widget.type,
+        controller: widget.controller,
+        decoration: InputDecoration(hintText: widget.hintText),
       ),
     );
   }

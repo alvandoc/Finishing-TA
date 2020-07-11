@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:project_ta_ke_7/core/models/barang_keluar_model.dart';
 import 'package:project_ta_ke_7/core/viewmodels/barang_keluar/barang_keluar_provider.dart';
 import 'package:project_ta_ke_7/core/viewmodels/barang_masuk/barang_masuk_provider.dart';
 import 'package:project_ta_ke_7/ui/constant/constant.dart';
 import 'package:project_ta_ke_7/ui/widget/barang_keluar_item.dart';
 import 'package:project_ta_ke_7/ui/widget/barang_masuk_item.dart';
 import 'package:project_ta_ke_7/ui/widget/conditions/loading.dart';
-import 'package:project_ta_ke_7/ui/widget/conditions/no_data.dart';
 import 'package:provider/provider.dart';
 
 class LastBarangHistory extends StatefulWidget {

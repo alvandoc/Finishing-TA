@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-class PrimaryButton extends StatelessWidget {
+// ignore: must_be_immutable
+class PrimaryButton extends StatefulWidget {
   String text;
   double fontSize;
   Function onPress;
@@ -12,11 +13,17 @@ class PrimaryButton extends StatelessWidget {
     this.fontSize,
     @required this.color
   });
+
+  @override
+  _PrimaryButtonState createState() => _PrimaryButtonState();
+}
+
+class _PrimaryButtonState extends State<PrimaryButton> {
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: color,
+        color: widget.color,
         borderRadius: BorderRadius.circular(8),
       ),
       child: Material(
@@ -24,13 +31,13 @@ class PrimaryButton extends StatelessWidget {
         color: Colors.transparent,
         child: InkWell(
           borderRadius: BorderRadius.circular(8),
-          onTap: () => onPress != null ? onPress() : {},
+          onTap: () => widget.onPress != null ? widget.onPress() : {},
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Center(
               child: Text(
-                text,
-                style: TextStyle(fontSize: fontSize != null ? fontSize : 18, color: Colors.white, fontWeight: FontWeight.w700),
+                widget.text,
+                style: TextStyle(fontSize: widget.fontSize != null ? widget.fontSize : 18, color: Colors.white, fontWeight: FontWeight.w700),
               ),
             ),
           ),

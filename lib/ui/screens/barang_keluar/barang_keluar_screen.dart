@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:project_ta_ke_7/core/models/barang_keluar_model.dart';
-import 'package:project_ta_ke_7/core/models/produk_model.dart';
 import 'package:project_ta_ke_7/core/viewmodels/barang_keluar/barang_keluar_provider.dart';
 import 'package:project_ta_ke_7/ui/constant/constant.dart';
 import 'package:project_ta_ke_7/ui/router/router_generator.dart';

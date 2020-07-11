@@ -118,6 +118,7 @@ class _RegisterBodyState extends State<RegisterBody> {
             ),
             SizedBox(height: 10),
             InputWidget(
+              labelText: "Username",
               controller: usernameController,
               action: TextInputAction.done,
               type: TextInputType.text,
@@ -144,7 +145,8 @@ class _RegisterBodyState extends State<RegisterBody> {
               controller: emailController,
               action: TextInputAction.done,
               type: TextInputType.emailAddress,
-              hintText: "Enter your email address.",
+              labelText: 'Email',
+              hintText: "email@example.com",
             )
           ],
         );
@@ -164,6 +166,7 @@ class _RegisterBodyState extends State<RegisterBody> {
             ),
             SizedBox(height: 10),
             InputWidget(
+              labelText: "First And Last Name",
               controller: nameController,
               action: TextInputAction.done,
               type: TextInputType.text,
@@ -187,6 +190,7 @@ class _RegisterBodyState extends State<RegisterBody> {
             ),
             SizedBox(height: 10),
             InputWidget(
+              labelText: "Phone Number",
               controller: phoneController,
               action: TextInputAction.done,
               type: TextInputType.number,
@@ -211,6 +215,7 @@ class _RegisterBodyState extends State<RegisterBody> {
             ),
             SizedBox(height: 10),
             InputWidget(
+              labelText: "Password",
               controller: passwordController,
               action: TextInputAction.done,
               type: TextInputType.text,

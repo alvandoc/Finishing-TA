@@ -2,7 +2,6 @@
 import 'package:project_ta_ke_7/core/database/barang_masuk/barang_masuk_db.dart';
 import 'package:project_ta_ke_7/core/database/product/product_db.dart';
 import 'package:project_ta_ke_7/core/models/barang_masuk_model.dart';
-import 'package:project_ta_ke_7/core/models/produk_model.dart';
 
 class BarangMasukService {
 

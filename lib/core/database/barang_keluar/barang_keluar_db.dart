@@ -2,7 +2,6 @@
 
 import 'package:project_ta_ke_7/core/database/database.dart';
 import 'package:project_ta_ke_7/core/models/barang_keluar_model.dart';
-import 'package:project_ta_ke_7/core/models/category_model.dart';
 import 'package:sqflite/sqflite.dart';
 
 class BarangKeluarDB {

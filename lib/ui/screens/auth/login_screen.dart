@@ -71,7 +71,7 @@ class _LoginBodyState extends State<LoginBody> {
     return Container(
       width: deviceWidth(context),
       height: 150,
-      child: Image.asset("${iconAsset}/logo.png"),
+      child: Image.asset("$iconAsset/logo.png"),
     );
   }
 
@@ -109,6 +109,7 @@ class _LoginBodyState extends State<LoginBody> {
             ),
             SizedBox(height: 10),
             InputWidget(
+              labelText: "Nama Pengguna",
               controller: usernameController,
               action: TextInputAction.done,
               type: TextInputType.text,
@@ -132,6 +133,7 @@ class _LoginBodyState extends State<LoginBody> {
             ),
             SizedBox(height: 10),
             InputWidget(
+              labelText: "Password",
               controller: passwordController,
               action: TextInputAction.done,
               type: TextInputType.text,

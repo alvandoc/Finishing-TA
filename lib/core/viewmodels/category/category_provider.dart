@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:project_ta_ke_7/core/models/category_model.dart';
 import 'package:project_ta_ke_7/core/services/category/category_services.dart';
 import 'package:project_ta_ke_7/core/utils/dialog_utils.dart';
-import 'package:project_ta_ke_7/ui/router/router_generator.dart';
 
 class CategoryProvider extends ChangeNotifier {
 

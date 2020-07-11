@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:project_ta_ke_7/core/models/barang_keluar_model.dart';
 import 'package:project_ta_ke_7/core/models/barang_masuk_model.dart';
 import 'package:project_ta_ke_7/core/models/produk_model.dart';
 import 'package:project_ta_ke_7/core/utils/dialog_utils.dart';
-import 'package:project_ta_ke_7/core/viewmodels/barang_keluar/barang_keluar_provider.dart';
 import 'package:project_ta_ke_7/core/viewmodels/barang_masuk/barang_masuk_provider.dart';
 import 'package:project_ta_ke_7/ui/constant/constant.dart';
 import 'package:project_ta_ke_7/ui/router/router_generator.dart';
@@ -105,6 +103,7 @@ class _CreateBarangMasukBodyState extends State<CreateBarangMasukBody> {
             ),
             SizedBox(height: 10),
             InputWidget(
+              labelText: "Pilih Produk",
               controller: produkController,
               action: TextInputAction.done,
               type: TextInputType.text,
@@ -130,6 +129,7 @@ class _CreateBarangMasukBodyState extends State<CreateBarangMasukBody> {
             ),
             SizedBox(height: 10),
             InputWidget(
+              labelText: "Kuantiti",
               controller: quantityController,
               action: TextInputAction.done,
               type: TextInputType.number,
@@ -153,6 +153,7 @@ class _CreateBarangMasukBodyState extends State<CreateBarangMasukBody> {
             ),
             SizedBox(height: 10),
             InputWidget(
+              labelText: "Nama Vendor",
               controller: vendorController,
               action: TextInputAction.done,
               type: TextInputType.text,

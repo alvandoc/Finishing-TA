@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:project_ta_ke_7/core/models/auth_model.dart';
 import 'package:project_ta_ke_7/core/viewmodels/auth/auth_provider.dart';
 import 'package:project_ta_ke_7/core/viewmodels/barang_keluar/barang_keluar_provider.dart';
 import 'package:project_ta_ke_7/core/viewmodels/barang_masuk/barang_masuk_provider.dart';
@@ -36,9 +34,7 @@ class HomeScreen extends StatelessWidget {
           )
         ],
       ),
-      body: SingleChildScrollView(
-        child: HomeBody()
-      ),
+      body: SingleChildScrollView(child: HomeBody()),
     );
   }
 }
@@ -50,13 +46,9 @@ class HomeBody extends StatelessWidget {
       statusBarColor: Colors.transparent, //or set color with: Color(0xFF0000FF)
     ));
     return Container(
-      child: Stack(
-        children: <Widget>[
-          _backgroundHeader(),
-          _contentBody()
-        ],
-      )
-    );
+        child: Stack(
+      children: <Widget>[_backgroundHeader(), _contentBody()],
+    ));
   }
 
   Widget _backgroundHeader() {
@@ -87,7 +79,6 @@ class HomeBody extends StatelessWidget {
     );
   }
 
-
   Widget _titleHeader() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -100,13 +91,17 @@ class HomeBody extends StatelessWidget {
                 "Halo, ${authProv.user.name}",
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                style: TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w700),
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w700),
               );
             },
           ),
           Text(
             "Perhitungan Stok Barang",
-            style: TextStyle(color: Colors.white, fontSize: 17, fontWeight: FontWeight.w700),
+            style: TextStyle(
+                color: Colors.white, fontSize: 17, fontWeight: FontWeight.w700),
           ),
         ],
       ),
@@ -114,142 +109,130 @@ class HomeBody extends StatelessWidget {
   }
 
   Widget _headerStock() {
-    return Builder(
-      builder: (context) {
-        return Container(
-          width: deviceWidth(context),
-          margin: EdgeInsets.symmetric(horizontal: 20),
-          decoration: BoxDecoration(
+    return Builder(builder: (context) {
+      return Container(
+        width: deviceWidth(context),
+        margin: EdgeInsets.symmetric(horizontal: 20),
+        decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(8),
             boxShadow: [
               BoxShadow(
-                color: Colors.black12.withOpacity(0.05),
-                offset: Offset(0, 12),
-                blurRadius: 10,
-                spreadRadius: 3
-              )
-            ]
-          ),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 20),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                Consumer2<BarangKeluarProvider, BarangMasukProvider>(
-                  builder: (context, barangKeluarProv, barangMasukProv, _) {
+                  color: Colors.black12.withOpacity(0.05),
+                  offset: Offset(0, 12),
+                  blurRadius: 10,
+                  spreadRadius: 3)
+            ]),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 20),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              Consumer2<BarangKeluarProvider, BarangMasukProvider>(
+                builder: (context, barangKeluarProv, barangMasukProv, _) {
+                  if (barangKeluarProv.totalQuantity == null &&
+                      barangMasukProv.totalQuantity == null) {
+                    return CircularProgressIndicator();
+                  }
 
-                    if (barangKeluarProv.totalQuantity == null && barangMasukProv.totalQuantity == null) {
-                      return CircularProgressIndicator();
-                    }
+                  return HeaderItem(
+                    iconPath: "$iconAsset/storage.svg",
+                    title: "Total",
+                    value: (barangMasukProv.totalQuantity +
+                            barangKeluarProv.totalQuantity)
+                        .toString(),
+                  );
+                },
+              ),
+              Consumer<BarangMasukProvider>(
+                builder: (context, barangProv, _) {
+                  if (barangProv.totalQuantity == null) {
+                    barangProv.getTotalQuantity();
+                    return CircularProgressIndicator();
+                  }
 
-                    return HeaderItem(
-                      iconPath: "${iconAsset}/storage.svg",
-                      title: "Total",
-                      value: (barangMasukProv.totalQuantity + barangKeluarProv.totalQuantity).toString(),
-                    );
-                  },
-                ),
-
-                Consumer<BarangMasukProvider>(
-                  builder: (context, barangProv, _) {
-
-                    if (barangProv.totalQuantity == null) {
-                      barangProv.getTotalQuantity();
-                      return CircularProgressIndicator();
-                    }
-
-                    return HeaderItem(
-                      iconPath: "${iconAsset}/stock.svg",
+                  return HeaderItem(
+                      iconPath: "$iconAsset/stock.svg",
                       title: "Masuk",
                       value: barangProv.totalQuantity.toString(),
                       useIconInfo: true,
                       icon: Icons.arrow_downward,
-                      iconColor: Colors.green
-                    );
-                  },
-                ),
-                
-                Consumer<BarangKeluarProvider>(
-                  builder: (context, barangProv, _) {
+                      iconColor: Colors.green);
+                },
+              ),
+              Consumer<BarangKeluarProvider>(
+                builder: (context, barangProv, _) {
+                  if (barangProv.totalQuantity == null) {
+                    barangProv.getTotalQuantity();
+                    return CircularProgressIndicator();
+                  }
 
-                    if (barangProv.totalQuantity == null) {
-                      barangProv.getTotalQuantity();
-                      return CircularProgressIndicator();
-                    }
-
-                    return HeaderItem(
-                      iconPath: "${iconAsset}/stock.svg",
+                  return HeaderItem(
+                      iconPath: "$iconAsset/stock.svg",
                       title: "Keluar",
                       value: barangProv.totalQuantity.toString(),
                       useIconInfo: true,
                       icon: Icons.arrow_upward,
-                      iconColor: Colors.red
-                    );
-                  },
-                ),
-              ],
-            ),
+                      iconColor: Colors.red);
+                },
+              ),
+            ],
           ),
-        );
-      }
-    );
+        ),
+      );
+    });
   }
 
   Widget _menuItem() {
     return Builder(
       builder: (context) {
         return Container(
-          margin: EdgeInsets.symmetric(horizontal: 20),
-          child: Column(
-            children: <Widget>[
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  MenuItem(
-                    iconPath: "${iconAsset}/product.svg",
-                    title: "Produk",
-                    onClick: () => Navigator.pushNamed(context, RouterGenerator.routeProduk),
-                  ),
-                  MenuItem(
-                    iconPath: "${iconAsset}/stock.svg",
-                    title: "Barang\nMasuk",
-                    onClick: () => Navigator.pushNamed(context, RouterGenerator.routeBarangMasuk)
-                  ),
-                  MenuItem(
-                    iconPath: "${iconAsset}/stock.svg",
-                    title: "Barang\nKeluar",
-                    onClick: () => Navigator.pushNamed(context, RouterGenerator.routeBarangKeluar),
-                  ),
-                ],
-              ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  MenuItem(
-                    iconPath: "${iconAsset}/category.svg",
-                    title: "Kategori",
-                    onClick: () => Navigator.pushNamed(context, RouterGenerator.routeCategory),
-                  ),
-                  MenuItem(
-                    iconPath: "${iconAsset}/comingsoon.svg",
-                    title: "Coming\nSoon",
-                    onClick: () {},
-                  ),
-                  MenuItem(
-                    iconPath: "${iconAsset}/see_more.svg",
-                    title: "See\nMore",
-                    onClick: () {},
-                  ),
-                ],
-              )
-            ],
-          )
-        );
+            margin: EdgeInsets.symmetric(horizontal: 20),
+            child: Column(
+              children: <Widget>[
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    MenuItem(
+                      iconPath: "$iconAsset/product.svg",
+                      title: "Produk",
+                      onClick: () => Navigator.pushNamed(
+                          context, RouterGenerator.routeProduk),
+                    ),
+                    MenuItem(
+                        iconPath: "$iconAsset/stock.svg",
+                        title: "Barang\nMasuk",
+                        onClick: () => Navigator.pushNamed(
+                            context, RouterGenerator.routeBarangMasuk)),
+                    MenuItem(
+                      iconPath: "$iconAsset/stock.svg",
+                      title: "Barang\nKeluar",
+                      onClick: () => Navigator.pushNamed(
+                          context, RouterGenerator.routeBarangKeluar),
+                    ),
+                  ],
+                ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    MenuItem(
+                      iconPath: "$iconAsset/category.svg",
+                      title: "Kategori",
+                      onClick: () => Navigator.pushNamed(
+                          context, RouterGenerator.routeCategory),
+                    ),
+                    MenuItem(
+                      iconPath: "$iconAsset/comingsoon.svg",
+                      title: "Coming\nSoon",
+                      onClick: () {},
+                    ),
+                  ],
+                )
+              ],
+            ));
       },
     );
   }
-
 }

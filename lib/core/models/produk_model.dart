@@ -1,6 +1,4 @@
 
-import 'package:flutter/material.dart';
-import 'package:project_ta_ke_7/core/models/category_model.dart';
 
 class ProdukModel {
   int id;

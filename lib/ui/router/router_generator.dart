@@ -7,6 +7,7 @@ import 'package:project_ta_ke_7/ui/screens/barang_keluar/choose_produk_screen.da
 import 'package:project_ta_ke_7/ui/screens/barang_keluar/create_barang_keluar_screen.dart';
 import 'package:project_ta_ke_7/ui/screens/barang_masuk/barang_masuk_screen.dart';
 import 'package:project_ta_ke_7/ui/screens/barang_masuk/create_barang_masuk_screen.dart';
+import 'package:project_ta_ke_7/ui/screens/barang_masuk/detail_BM.dart';
 import 'package:project_ta_ke_7/ui/screens/category/category_screen.dart';
 import 'package:project_ta_ke_7/ui/screens/category/create_category_screen.dart';
 import 'package:project_ta_ke_7/ui/screens/home/home_screen.dart';
@@ -16,7 +17,6 @@ import 'package:project_ta_ke_7/ui/screens/produk/edit_produk_screen.dart';
 import 'package:project_ta_ke_7/ui/screens/produk/produk_detail.dart';
 import 'package:project_ta_ke_7/ui/screens/produk/produk_screen.dart';
 import 'package:project_ta_ke_7/ui/screens/splash/splash_screen.dart';
-
 
 class RouterGenerator {
   //*------------------
@@ -40,16 +40,18 @@ class RouterGenerator {
 
   static const routeBarangMasuk = "/barang_masuk";
   static const routeCreateBarangMasuk = "/barang_masuk/create";
+  static const routeDetailMasukKeluar = "/barang_masuk/DetailBM";
 
   static const routeLogin = "/login";
   static const routeRegister = "/register";
 
   static const routeSplash = "/splashscreen";
 
+  // ignore: missing_return
   static Route<dynamic> generateRoute(RouteSettings settings) {
     final args = settings.arguments;
 
-    switch(settings.name) {
+    switch (settings.name) {
       case routeHome:
         return MaterialPageRoute(builder: (_) => HomeScreen());
         break;
@@ -65,12 +67,25 @@ class RouterGenerator {
       case routeProduk:
         return MaterialPageRoute(builder: (_) => ProdukScreen());
         break;
+
+      case routeDetailMasukKeluar:
+        if (args is ProdukModel) {
+          return MaterialPageRoute(
+              builder: (_) => DetailBM(
+                    produk: args,
+                  ));
+        }
+
+        return _errorRoute();
+        break;
+
       case routeProdukDetail:
         if (args is ProdukModel) {
-          return MaterialPageRoute(builder: (_) => ProdukDetailScreen(
-            produk: args,
-          ));
-        } 
+          return MaterialPageRoute(
+              builder: (_) => ProdukDetailScreen(
+                    produk: args,
+                  ));
+        }
 
         return _errorRoute();
         break;
@@ -79,17 +94,18 @@ class RouterGenerator {
         break;
       case routeEditProduk:
         if (args is ProdukModel) {
-          return MaterialPageRoute(builder: (_) => EditProdukScreen(
-            produk: args,
-          ));
-        } 
+          return MaterialPageRoute(
+              builder: (_) => EditProdukScreen(
+                    produk: args,
+                  ));
+        }
 
         return _errorRoute();
         break;
       case routeChooseProduk:
         return MaterialPageRoute(builder: (_) => ChooseProdukScreen());
         break;
-      
+
       case routeCategory:
         return MaterialPageRoute(builder: (_) => CategoryScreen());
         break;

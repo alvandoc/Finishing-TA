@@ -1,9 +1,7 @@
 
 import 'package:project_ta_ke_7/core/database/barang_keluar/barang_keluar_db.dart';
-import 'package:project_ta_ke_7/core/database/category/category_db.dart';
 import 'package:project_ta_ke_7/core/database/product/product_db.dart';
 import 'package:project_ta_ke_7/core/models/barang_keluar_model.dart';
-import 'package:project_ta_ke_7/core/models/category_model.dart';
 
 class BarangKeluarServices {
 

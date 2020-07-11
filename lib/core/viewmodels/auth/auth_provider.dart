@@ -107,7 +107,7 @@ class AuthProvider extends ChangeNotifier {
   }
 
   void logout(BuildContext context) async {
-    await AuthUtils.instance.clearSession();
+    AuthUtils.instance.clearSession();
     Navigator.pushNamedAndRemoveUntil(context, RouterGenerator.routeLogin, (route) => false);
     notifyListeners();
   }

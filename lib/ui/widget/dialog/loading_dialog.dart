@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 
-class LoadingDialog extends StatelessWidget {
+// ignore: must_be_immutable
+class LoadingDialog extends StatefulWidget {
   String text;
 
   LoadingDialog({
     @required this.text,
   });
 
+  @override
+  _LoadingDialogState createState() => _LoadingDialogState();
+}
+
+class _LoadingDialogState extends State<LoadingDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -17,7 +23,7 @@ class LoadingDialog extends StatelessWidget {
         child: CircularProgressIndicator(),
       ),
       content: Text(
-        text,
+        widget.text,
         style: TextStyle(
           color: Colors.black87,
           fontSize: 16,

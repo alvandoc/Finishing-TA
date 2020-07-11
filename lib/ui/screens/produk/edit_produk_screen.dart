@@ -14,13 +14,16 @@ import 'package:project_ta_ke_7/ui/widget/input_widget.dart';
 import 'package:project_ta_ke_7/ui/widget/primary_button.dart';
 import 'package:provider/provider.dart';
 
-class EditProdukScreen extends StatelessWidget {
-
+// ignore: must_be_immutable
+class EditProdukScreen extends StatefulWidget {
   ProdukModel produk;
-  EditProdukScreen({
-    @required this.produk
-  });
+  EditProdukScreen({@required this.produk});
 
+  @override
+  _EditProdukScreenState createState() => _EditProdukScreenState();
+}
+
+class _EditProdukScreenState extends State<EditProdukScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,48 +36,42 @@ class EditProdukScreen extends StatelessWidget {
         ),
       ),
       body: SingleChildScrollView(
-        physics: BouncingScrollPhysics(),
-        child: EditProdukBody(
-          produk: produk
-        )
-      ),
+          physics: BouncingScrollPhysics(),
+          child: EditProdukBody(produk: widget.produk)),
     );
   }
 }
 
+// ignore: must_be_immutable
 class EditProdukBody extends StatefulWidget {
-
   ProdukModel produk;
-  EditProdukBody({
-    @required this.produk
-  });
+  EditProdukBody({@required this.produk});
 
   @override
   _EditProdukBodyState createState() => _EditProdukBodyState();
 }
 
 class _EditProdukBodyState extends State<EditProdukBody> {
-
   var titleController = TextEditingController();
   var stockController = TextEditingController();
   var descriptionController = TextEditingController();
   var priceController = TextEditingController();
   var categoryController = TextEditingController();
-  
+
   CategoryModel selectedCategory;
 
   File imageProduk;
   void pickImage() async {
-    var image = await ImagePicker.pickImage(source: ImageSource.gallery);
-    if (image != null) {
-      setState(() {
-        imageProduk = image;
-      });
-    }
+    var image = await ImagePicker.pickImage(
+        source: ImageSource.camera, maxHeight: 480, maxWidth: 640);
+    setState(() {
+      imageProduk = image;
+    });
   }
 
   void pickCategory() async {
-    var result = await Navigator.pushNamed(context, RouterGenerator.routeChooseCategory);
+    var result =
+        await Navigator.pushNamed(context, RouterGenerator.routeChooseCategory);
     if (result != null) {
       setState(() {
         selectedCategory = result;
@@ -84,27 +81,27 @@ class _EditProdukBodyState extends State<EditProdukBody> {
   }
 
   void createProduct() {
-    
     //* check field conditions
-    if (titleController.text.isNotEmpty && stockController.text.isNotEmpty
-      && descriptionController.text.isNotEmpty && priceController.text.isNotEmpty
-      && categoryController.text.isNotEmpty) {
-
+    if (titleController.text.isNotEmpty &&
+        stockController.text.isNotEmpty &&
+        descriptionController.text.isNotEmpty &&
+        priceController.text.isNotEmpty &&
+        categoryController.text.isNotEmpty) {
       //* Data to send
       var product = ProdukModel(
-        title: titleController.text,
-        stock: int.parse(stockController.text),
-        description: descriptionController.text,
-        price: int.parse(priceController.text),
-        categoryId: selectedCategory.id,
-        image: imageProduk != null ? base64Encode(imageProduk.readAsBytesSync()) : null
-      );
-      Provider.of<ProductProvider>(context, listen: false).update(product, widget.produk.id, context);
-
+          title: titleController.text,
+          stock: int.parse(stockController.text),
+          description: descriptionController.text,
+          price: int.parse(priceController.text),
+          categoryId: selectedCategory.id,
+          image: imageProduk != null
+              ? base64Encode(imageProduk.readAsBytesSync())
+              : null);
+      Provider.of<ProductProvider>(context, listen: false)
+          .update(product, widget.produk.id, context);
     } else {
-      DialogUtils.instance.showInfo(context, 
-        "Semua bagian tidak boleh kosong", 
-        Icons.error, "OK");
+      DialogUtils.instance.showInfo(
+          context, "Semua bagian tidak boleh kosong", Icons.error, "OK");
     }
   }
 
@@ -114,9 +111,7 @@ class _EditProdukBodyState extends State<EditProdukBody> {
     descriptionController.text = widget.produk.description;
     priceController.text = widget.produk.price.toString();
     selectedCategory = CategoryModel(
-      id: widget.produk.categoryId,
-      icon: widget.produk.categoryIcon
-    );
+        id: widget.produk.categoryId, icon: widget.produk.categoryIcon);
     categoryController.text = widget.produk.category;
   }
 
@@ -151,19 +146,20 @@ class _EditProdukBodyState extends State<EditProdukBody> {
     );
   }
 
-
   Widget _fieldTitle() {
     return Builder(
       builder: (context) {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(
-              "Title",
-              style: TextStyle(color: Colors.black87, fontWeight: FontWeight.w700, fontSize: 15)
-            ),
+            Text("Title",
+                style: TextStyle(
+                    color: Colors.black87,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 15)),
             SizedBox(height: 10),
             InputWidget(
+              labelText: "judul",
               controller: titleController,
               action: TextInputAction.done,
               type: TextInputType.text,
@@ -181,12 +177,14 @@ class _EditProdukBodyState extends State<EditProdukBody> {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(
-              "Stok",
-              style: TextStyle(color: Colors.black87, fontWeight: FontWeight.w700, fontSize: 15)
-            ),
+            Text("Stok",
+                style: TextStyle(
+                    color: Colors.black87,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 15)),
             SizedBox(height: 10),
             InputWidget(
+              labelText: "Stok",
               controller: stockController,
               action: TextInputAction.done,
               type: TextInputType.number,
@@ -204,12 +202,14 @@ class _EditProdukBodyState extends State<EditProdukBody> {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(
-              "Description",
-              style: TextStyle(color: Colors.black87, fontWeight: FontWeight.w700, fontSize: 15)
-            ),
+            Text("Description",
+                style: TextStyle(
+                    color: Colors.black87,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 15)),
             SizedBox(height: 10),
             InputWidget(
+              labelText: "Dezkripsi",
               controller: descriptionController,
               action: TextInputAction.newline,
               type: TextInputType.multiline,
@@ -227,12 +227,14 @@ class _EditProdukBodyState extends State<EditProdukBody> {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(
-              "Price",
-              style: TextStyle(color: Colors.black87, fontWeight: FontWeight.w700, fontSize: 15)
-            ),
+            Text("Price",
+                style: TextStyle(
+                    color: Colors.black87,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 15)),
             SizedBox(height: 10),
             InputWidget(
+              labelText: "Harga",
               controller: priceController,
               action: TextInputAction.done,
               type: TextInputType.number,
@@ -250,12 +252,14 @@ class _EditProdukBodyState extends State<EditProdukBody> {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(
-              "Category",
-              style: TextStyle(color: Colors.black87, fontWeight: FontWeight.w700, fontSize: 15)
-            ),
+            Text("Category",
+                style: TextStyle(
+                    color: Colors.black87,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 15)),
             SizedBox(height: 10),
             InputWidget(
+              labelText: "Kategori",
               controller: categoryController,
               action: TextInputAction.done,
               type: TextInputType.text,
@@ -275,16 +279,17 @@ class _EditProdukBodyState extends State<EditProdukBody> {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(
-              "Image",
-              style: TextStyle(color: Colors.black87, fontWeight: FontWeight.w700, fontSize: 15)
-            ),
+            Text("Image",
+                style: TextStyle(
+                    color: Colors.black87,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 15)),
             SizedBox(height: 10),
             Center(
-              child: widget.produk.image == null || widget.produk.image == null
-                ? _imageWidget()
-                : _imageFillWidget()
-            )
+                child:
+                    widget.produk.image == null || widget.produk.image == null
+                        ? _imageWidget()
+                        : _imageFillWidget())
           ],
         );
       },
@@ -301,16 +306,13 @@ class _EditProdukBodyState extends State<EditProdukBody> {
             width: 100,
             height: 100,
             decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: primaryColor.withOpacity(0.1),
-              image: DecorationImage(
-                image: imageProduk != null 
-                  ? FileImage(imageProduk)
-                  : MemoryImage(base64Decode(widget.produk.image)),
-                fit: BoxFit.cover
-              )
-            ),
-           
+                shape: BoxShape.circle,
+                color: primaryColor.withOpacity(0.1),
+                image: DecorationImage(
+                    image: imageProduk != null
+                        ? FileImage(imageProduk)
+                        : MemoryImage(base64Decode(widget.produk.image)),
+                    fit: BoxFit.cover)),
           ),
         );
       },
@@ -329,9 +331,8 @@ class _EditProdukBodyState extends State<EditProdukBody> {
                 width: 100,
                 height: 100,
                 decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: primaryColor.withOpacity(0.1)
-                ),
+                    shape: BoxShape.circle,
+                    color: primaryColor.withOpacity(0.1)),
                 child: Material(
                   type: MaterialType.transparency,
                   color: Colors.transparent,
@@ -340,38 +341,34 @@ class _EditProdukBodyState extends State<EditProdukBody> {
                     borderRadius: BorderRadius.circular(60),
                     child: Padding(
                       padding: const EdgeInsets.all(15),
-                      child: SvgPicture.asset("${iconAsset}/product.svg", color: primaryColor),
+                      child: SvgPicture.asset("$iconAsset/product.svg",
+                          color: primaryColor),
                     ),
                   ),
                 ),
               ),
-
               Align(
                 alignment: Alignment.bottomRight,
                 child: Container(
                   width: 32,
                   height: 32,
                   decoration: BoxDecoration(
-                    color: Colors.white,
-                    shape: BoxShape.circle,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black26.withOpacity(0.1),
-                        offset: Offset(0, 5),
-                        blurRadius: 13,
-                        spreadRadius: 1
-                      )
-                    ]
-                  ),
+                      color: Colors.white,
+                      shape: BoxShape.circle,
+                      boxShadow: [
+                        BoxShadow(
+                            color: Colors.black26.withOpacity(0.1),
+                            offset: Offset(0, 5),
+                            blurRadius: 13,
+                            spreadRadius: 1)
+                      ]),
                   child: Material(
-                    type: MaterialType.transparency,
-                    color: Colors.transparent,
-                    child: InkWell(
-                      onTap: () => pickImage(),
-                      borderRadius: BorderRadius.circular(60),
-                      child: Icon(Icons.add, color: Colors.green)
-                    )
-                  ),
+                      type: MaterialType.transparency,
+                      color: Colors.transparent,
+                      child: InkWell(
+                          onTap: () => pickImage(),
+                          borderRadius: BorderRadius.circular(60),
+                          child: Icon(Icons.add, color: Colors.green))),
                 ),
               )
             ],
@@ -388,5 +385,4 @@ class _EditProdukBodyState extends State<EditProdukBody> {
       onPress: () => createProduct(),
     );
   }
-  
 }

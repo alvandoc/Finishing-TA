@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:project_ta_ke_7/ui/constant/constant.dart';
 
-class InfoDialog extends StatelessWidget {
+// ignore: must_be_immutable
+class InfoDialog extends StatefulWidget {
   String text;
   String clickText;
   IconData icon;
@@ -16,16 +17,21 @@ class InfoDialog extends StatelessWidget {
   });
 
   @override
+  _InfoDialogState createState() => _InfoDialogState();
+}
+
+class _InfoDialogState extends State<InfoDialog> {
+  @override
   Widget build(BuildContext context) {
     return AlertDialog(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10)
       ),
       title: Center(
-        child: Icon(icon, color: primaryColor, size: 25,),
+        child: Icon(widget.icon, color: primaryColor, size: 25,),
       ),
       content: Text(
-        text,
+        widget.text,
         style: TextStyle(
           color: Colors.black87,
           fontSize: 16,
@@ -33,18 +39,18 @@ class InfoDialog extends StatelessWidget {
       ),
       actions: <Widget>[
         FlatButton(
-          onPressed: () => onClickOK(),
+          onPressed: () => widget.onClickOK(),
           child: Text(
-            clickText,
+            widget.clickText,
             style: TextStyle(
               color: primaryColor,
               fontWeight: FontWeight.w600
             ),
           ),
         ),
-        onClickCancel != null 
+        widget.onClickCancel != null 
           ? FlatButton(
-            onPressed: () => onClickCancel(),
+            onPressed: () => widget.onClickCancel(),
             child: Text(
               "Batal",
               style: TextStyle(

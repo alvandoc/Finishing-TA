@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:project_ta_ke_7/ui/constant/constant.dart';
 
-class HeaderItem extends StatelessWidget {
+// ignore: must_be_immutable
+class HeaderItem extends StatefulWidget {
 
   String iconPath;
   String title;
@@ -20,6 +21,11 @@ class HeaderItem extends StatelessWidget {
   });
 
   @override
+  _HeaderItemState createState() => _HeaderItemState();
+}
+
+class _HeaderItemState extends State<HeaderItem> {
+  @override
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
@@ -28,8 +34,8 @@ class HeaderItem extends StatelessWidget {
           height: 38,
           child: Stack(
             children: <Widget>[
-              SvgPicture.asset(iconPath, width: 32, height: 32, color: primaryColor),
-              useIconInfo ? Align(
+              SvgPicture.asset(widget.iconPath, width: 32, height: 32, color: primaryColor),
+              widget.useIconInfo ? Align(
                 alignment: Alignment.bottomRight,
                 child: Container(
                   height: 20,
@@ -46,18 +52,18 @@ class HeaderItem extends StatelessWidget {
                       )
                     ]
                   ),
-                  child: Icon(icon, color: iconColor, size: 15),
+                  child: Icon(widget.icon, color: widget.iconColor, size: 15),
                 ),
               ) : SizedBox()
             ],
           ),
         ),
         Text(
-          title,
+          widget.title,
           style: TextStyle(color: Colors.black87, fontWeight: FontWeight.w700),
         ),
         Text(
-          value,
+          widget.value,
           style: TextStyle(color: Colors.black87, fontSize: 13),
         )
       ],

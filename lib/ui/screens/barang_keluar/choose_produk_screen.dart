@@ -6,17 +6,22 @@ import 'package:project_ta_ke_7/core/utils/currency_utils.dart';
 import 'package:project_ta_ke_7/core/utils/dialog_utils.dart';
 import 'package:project_ta_ke_7/core/viewmodels/product/product_provider.dart';
 import 'package:project_ta_ke_7/ui/constant/constant.dart';
-import 'package:project_ta_ke_7/ui/router/router_generator.dart';
 import 'package:project_ta_ke_7/ui/widget/conditions/no_data.dart';
 import 'package:provider/provider.dart';
 
-class ChooseProdukScreen extends StatelessWidget {
+// ignore: must_be_immutable
+class ChooseProdukScreen extends StatefulWidget {
 
   bool allowPickZeroQuantity;
   ChooseProdukScreen({
     this.allowPickZeroQuantity = true
   });
 
+  @override
+  _ChooseProdukScreenState createState() => _ChooseProdukScreenState();
+}
+
+class _ChooseProdukScreenState extends State<ChooseProdukScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,7 +42,7 @@ class ChooseProdukScreen extends StatelessWidget {
         child: SingleChildScrollView(
           physics: BouncingScrollPhysics(),
           child: ProdukBody(
-            allowPickZeroQuantity: allowPickZeroQuantity,
+            allowPickZeroQuantity: widget.allowPickZeroQuantity,
           )
         ),
       ),
@@ -45,6 +50,7 @@ class ChooseProdukScreen extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class ProdukBody extends StatefulWidget {
   bool allowPickZeroQuantity;
   ProdukBody({

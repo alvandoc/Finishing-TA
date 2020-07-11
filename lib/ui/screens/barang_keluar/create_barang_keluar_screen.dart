@@ -105,6 +105,7 @@ class _CreateBarangKeluarBodyState extends State<CreateBarangKeluarBody> {
             ),
             SizedBox(height: 10),
             InputWidget(
+              labelText: "Choose Produk",
               controller: produkController,
               action: TextInputAction.done,
               type: TextInputType.text,
@@ -130,6 +131,7 @@ class _CreateBarangKeluarBodyState extends State<CreateBarangKeluarBody> {
             ),
             SizedBox(height: 10),
             InputWidget(
+              labelText: "Kuantiti",
               controller: quantityController,
               action: TextInputAction.done,
               type: TextInputType.number,

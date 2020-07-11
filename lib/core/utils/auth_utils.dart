@@ -15,12 +15,12 @@ class AuthUtils {
 
   Future<bool> checkSession() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    return await prefs.getBool("islogin") ?? false;
+    return prefs.getBool("islogin") ?? false;
   }
 
   Future<UserModel> getUser() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    var data = await prefs.getString("user");
+    var data = prefs.getString("user");
     return UserModel.fromJson(json.decode(data));
   }
 

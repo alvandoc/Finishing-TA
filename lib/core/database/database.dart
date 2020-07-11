@@ -23,7 +23,7 @@ class DatabaseHelper{
   Future<Database> initializeDatabase() async {
     // mengambil koleksi database
     Directory directory = await getApplicationDocumentsDirectory();
-    String path = "${directory.path}/${_dbName}";
+    String path = "${directory.path}/$_dbName";
 
     // Membuka Database
     var database = await openDatabase(path, version: 1,onCreate: _createDB);
@@ -41,7 +41,7 @@ class DatabaseHelper{
       icon INTEGER, name TEXT, created_at DATETIME)''');
 
     //* Creating default category
-    await _createDefaultCategory(db);
+    _createDefaultCategory(db);
 
     //* Creating barang_keluar table
     await db.execute('''CREATE TABLE barang_keluar (id INTEGER PRIMARY KEY AUTOINCREMENT,

@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:project_ta_ke_7/ui/constant/constant.dart';
 
-class MenuItem extends StatelessWidget {
+// ignore: must_be_immutable
+class MenuItem extends StatefulWidget {
 
   String title;
   String iconPath;
@@ -14,6 +15,11 @@ class MenuItem extends StatelessWidget {
   });
 
   @override
+  _MenuItemState createState() => _MenuItemState();
+}
+
+class _MenuItemState extends State<MenuItem> {
+  @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
@@ -23,7 +29,7 @@ class MenuItem extends StatelessWidget {
         type: MaterialType.transparency,
         color: Colors.transparent,
         child: InkWell(
-          onTap: () => onClick(),
+          onTap: () => widget.onClick(),
           borderRadius: BorderRadius.circular(8),
           child: Padding(
             padding: const EdgeInsets.all(10),
@@ -38,12 +44,12 @@ class MenuItem extends StatelessWidget {
                   ),
                   child: Padding(
                     padding: const EdgeInsets.all(10),
-                    child: SvgPicture.asset(iconPath, width: 32, height: 32, color: primaryColor),
+                    child: SvgPicture.asset(widget.iconPath, width: 32, height: 32, color: primaryColor),
                   ),
                 ),
                 SizedBox(height: 5),
                 Text(
-                  title,
+                  widget.title,
                   textAlign: TextAlign.center,
                   style: TextStyle(color: Colors.black87, fontWeight: FontWeight.w700),
                 ),

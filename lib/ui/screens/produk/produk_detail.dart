@@ -8,13 +8,19 @@ import 'package:project_ta_ke_7/core/viewmodels/product/product_provider.dart';
 import 'package:project_ta_ke_7/ui/constant/constant.dart';
 import 'package:provider/provider.dart';
 
-class ProdukDetailScreen extends StatelessWidget {
+// ignore: must_be_immutable
+class ProdukDetailScreen extends StatefulWidget {
 
   ProdukModel produk;
   ProdukDetailScreen({
     @required this.produk
   });
 
+  @override
+  _ProdukDetailScreenState createState() => _ProdukDetailScreenState();
+}
+
+class _ProdukDetailScreenState extends State<ProdukDetailScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,7 +35,7 @@ class ProdukDetailScreen extends StatelessWidget {
       body: SingleChildScrollView(
         physics: BouncingScrollPhysics(),
         child: ProdukDetailBody(
-          produk: produk,
+          produk: widget.produk,
         ),
       ),
       bottomSheet: _bottomWidget(),
@@ -50,7 +56,7 @@ class ProdukDetailScreen extends StatelessWidget {
                     type: MaterialType.transparency,
                     color: Colors.transparent,
                     child: InkWell(
-                      onTap: () => produkProv.editProduk(context, produk),
+                      onTap: () => produkProv.editProduk(context, widget.produk),
                       child: Center(
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -75,7 +81,7 @@ class ProdukDetailScreen extends StatelessWidget {
                     type: MaterialType.transparency,
                     color: Colors.transparent,
                     child: InkWell(
-                      onTap: () => produkProv.deleteProduk(context, produk.id.toString()),
+                      onTap: () => produkProv.deleteProduk(context, widget.produk.id.toString()),
                       child: Center(
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -101,12 +107,18 @@ class ProdukDetailScreen extends StatelessWidget {
   }
 }
 
-class ProdukDetailBody extends StatelessWidget {
+// ignore: must_be_immutable
+class ProdukDetailBody extends StatefulWidget {
   ProdukModel produk;
   ProdukDetailBody({
     @required this.produk
   });
 
+  @override
+  _ProdukDetailBodyState createState() => _ProdukDetailBodyState();
+}
+
+class _ProdukDetailBodyState extends State<ProdukDetailBody> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -145,7 +157,7 @@ class ProdukDetailBody extends StatelessWidget {
             ),
             image: DecorationImage(
               image: MemoryImage(
-                base64Decode(produk.image)
+                base64Decode(widget.produk.image)
               ),
               fit: BoxFit.cover
             ),
@@ -161,7 +173,7 @@ class ProdukDetailBody extends StatelessWidget {
       children: <Widget>[
         Expanded(
           child: Text(
-            produk.title,
+            widget.produk.title,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
             style: TextStyle(
@@ -172,7 +184,7 @@ class ProdukDetailBody extends StatelessWidget {
         ),
         SizedBox(width: 10),
         Text(
-          "Rp ${formatter.format(produk.price)}",
+          "Rp ${formatter.format(widget.produk.price)}",
           maxLines: 2,
           overflow: TextOverflow.ellipsis,
           style: TextStyle(
@@ -200,11 +212,11 @@ class ProdukDetailBody extends StatelessWidget {
                 Container(
                   width: 32,
                   height: 32,
-                  child: SvgPicture.asset("${iconAsset}/storage.svg", color: primaryColor),
+                  child: SvgPicture.asset("$iconAsset/storage.svg", color: primaryColor),
                 ),
                 SizedBox(height: 5),
                 Text(
-                  "${produk.stock.toString()} Tersedia"  ,
+                  "${widget.produk.stock.toString()} Tersedia"  ,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
@@ -226,11 +238,11 @@ class ProdukDetailBody extends StatelessWidget {
             Column(
               children: <Widget>[
                 Container(
-                  child: Icon(IconData(produk.categoryIcon, fontFamily: "MaterialIcons"), color: primaryColor, size: 32),
+                  child: Icon(IconData(widget.produk.categoryIcon, fontFamily: "MaterialIcons"), color: primaryColor, size: 32),
                 ),
                 SizedBox(height: 5),
                 Text(
-                  produk.category,
+                  widget.produk.category,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
@@ -248,7 +260,7 @@ class ProdukDetailBody extends StatelessWidget {
 
   Widget _description() {
     return Text(
-      produk.description,
+      widget.produk.description,
       style: TextStyle(
         color: Colors.black87,
         fontSize: 14

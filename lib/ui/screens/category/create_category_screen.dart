@@ -5,7 +5,6 @@ import 'package:project_ta_ke_7/core/models/category_model.dart';
 import 'package:project_ta_ke_7/core/utils/dialog_utils.dart';
 import 'package:project_ta_ke_7/core/viewmodels/category/category_provider.dart';
 import 'package:project_ta_ke_7/ui/constant/constant.dart';
-import 'package:project_ta_ke_7/ui/router/router_generator.dart';
 import 'package:project_ta_ke_7/ui/widget/input_widget.dart';
 import 'package:project_ta_ke_7/ui/widget/primary_button.dart';
 import 'package:provider/provider.dart';
@@ -114,7 +113,7 @@ class _CreateCategoryBodyState extends State<CreateCategoryBody> {
           child: Padding(
             padding: const EdgeInsets.all(10),
             child: icon == null
-              ? SvgPicture.asset("${iconAsset}/category.svg", width: 24, height: 24, color: Colors.white)
+              ? SvgPicture.asset("$iconAsset/category.svg", width: 24, height: 24, color: Colors.white)
               : Icon(IconData(icon, fontFamily: "MaterialIcons"), color: Colors.white),
           ),
         ),
@@ -124,6 +123,7 @@ class _CreateCategoryBodyState extends State<CreateCategoryBody> {
 
   Widget _fieldName() {
     return InputWidget(
+      labelText: "Nama Kategori",
       controller: nameController,
       type: TextInputType.text,
       action: TextInputAction.done,

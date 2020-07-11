@@ -115,7 +115,7 @@ class BarangKeluarProvider extends ChangeNotifier {
   void goToProduct(String id, BuildContext context) async {
     final productProv = Provider.of<ProductProvider>(context, listen: false);
     var product = await productProv.getById(id);
-    Navigator.pushNamed(context, RouterGenerator.routeProdukDetail, arguments: product);
+    Navigator.pushNamed(context, RouterGenerator.routeDetailMasukKeluar, arguments: product);
   }
 
   void clearBarangKeluar() {

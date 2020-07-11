@@ -52,7 +52,7 @@ class _SplashBodyState extends State<SplashBody> {
     return Container(
       width: deviceWidth(context),
       height: 150,
-      child: Image.asset("${iconAsset}/logo.png"),
+      child: Image.asset("$iconAsset/logo.png"),
     );
   }
 

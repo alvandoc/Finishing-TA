@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class InputWidget extends StatefulWidget {
+  String labelText;
   String hintText;
   TextInputAction action;
   TextInputType type;
@@ -18,7 +20,8 @@ class InputWidget extends StatefulWidget {
     @required this.controller,
     this.readOnly = false,
     this.onClick,
-    this.maxLine
+    this.maxLine,
+    @required this.labelText
   });
 
   @override
@@ -44,6 +47,7 @@ class _InputWidgetState extends State<InputWidget> {
           obscureText: widget.secureText,
           maxLines: widget.maxLine,
           decoration: InputDecoration(
+            labelText: widget.labelText,
             hintText: widget.hintText,
             border: InputBorder.none
           ),
